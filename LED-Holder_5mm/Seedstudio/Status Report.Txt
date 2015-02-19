@@ -1,0 +1,12 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : PCB Document [LED-Holder_5mm.PcbDoc]
+   Generated File[LED-Holder_5mm.TXT]
+   Generated File[LED-Holder_5mm.LDP]
+   Generated File[LED-Holder_5mm.DRR]
+
+
+Files Generated   : 3
+Documents Printed : 0
+
+Finished Output Generation At 21:34:47 On 19.02.2015
