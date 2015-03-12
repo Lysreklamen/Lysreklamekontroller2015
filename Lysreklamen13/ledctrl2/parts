@@ -1,0 +1,77 @@
+Part     Value             Device              Package            Library          Sheet
+
+C2       15uF              CAP0805             0805               SparkFun         1	1740594 
+C3                         CAP0805             0805               SparkFun         1
+
+C5 	 22uF              CAP_POLSMD          VISHAY_C           SparkFun         1	ARK-rull
+C8                         CAP_POLSMD          VISHAY_C           SparkFun         1
+
+C4       0.1u              CAP0805             0805               SparkFun         1	1759123
+C6                         CAP0805             0805               SparkFun         1
+C7                         CAP0805             0805               SparkFun         1
+
+IC1      AVR_XMEGA_A3_     AVR_XMEGA_A3_       TQFP64             xmega            1	1748559
+
+IC2      MAX3468CSA        MAX3468CSA          SO08               maxim            1	1379718
+
+IC3      LM1117MPX-3.3     LM1117MPX-3.3       SOT223             lm1117           1	1652313 eller ARK-rull
+
+JP1                        PINHD-2X3           2X03               SparkFun         1	Headers
+JP2                        M03LOCK_LONGPADS    1X03_LOCK_LONGPADS SparkFun         1
+
+JP3                        M02                 1X02_LONGPADS      SparkFun         1	1767500
+JP4                        M02                 1X02_LONGPADS      SparkFun         1
+
+L0       SCREW-TERMINAL-4P SCREW-TERMINAL-4P   SK-CZZ-4P          terminals        1	ELFA: 48-374-07
+L1       SCREW-TERMINAL-4P SCREW-TERMINAL-4P   SK-CZZ-4P          terminals        1
+L2       SCREW-TERMINAL-4P SCREW-TERMINAL-4P   SK-CZZ-4P          terminals        1
+L3       SCREW-TERMINAL-4P SCREW-TERMINAL-4P   SK-CZZ-4P          terminals        1
+L4       SCREW-TERMINAL-4P SCREW-TERMINAL-4P   SK-CZZ-4P          terminals        1
+L5       SCREW-TERMINAL-4P SCREW-TERMINAL-4P   SK-CZZ-4P          terminals        1
+X1       SCREW-TERMINAL-4P SCREW-TERMINAL-4P   SK-CZZ-4P          terminals        1
+X2       SCREW-TERMINAL-4P SCREW-TERMINAL-4P   SK-CZZ-4P          terminals        1
+
+Q1                         TRANSISTOR_NPNSOT89 SOT89              sot89_lengrebein 1	1710681
+Q2                         TRANSISTOR_NPNSOT89 SOT89              sot89_lengrebein 1
+Q3                         TRANSISTOR_NPNSOT89 SOT89              sot89_lengrebein 1
+Q4                         TRANSISTOR_NPNSOT89 SOT89              sot89_lengrebein 1
+Q5                         TRANSISTOR_NPNSOT89 SOT89              sot89_lengrebein 1
+Q6                         TRANSISTOR_NPNSOT89 SOT89              sot89_lengrebein 1
+Q7                         TRANSISTOR_NPNSOT89 SOT89              sot89_lengrebein 1
+Q8                         TRANSISTOR_NPNSOT89 SOT89              sot89_lengrebein 1
+Q9                         TRANSISTOR_NPNSOT89 SOT89              sot89_lengrebein 1
+Q10                        TRANSISTOR_NPNSOT89 SOT89              sot89_lengrebein 1
+Q11                        TRANSISTOR_NPNSOT89 SOT89              sot89_lengrebein 1
+Q12                        TRANSISTOR_NPNSOT89 SOT89              sot89_lengrebein 1
+Q13                        TRANSISTOR_NPNSOT89 SOT89              sot89_lengrebein 1
+Q14                        TRANSISTOR_NPNSOT89 SOT89              sot89_lengrebein 1
+Q15                        TRANSISTOR_NPNSOT89 SOT89              sot89_lengrebein 1
+Q16                        TRANSISTOR_NPNSOT89 SOT89              sot89_lengrebein 1
+Q17                        TRANSISTOR_NPNSOT89 SOT89              sot89_lengrebein 1
+Q18                        TRANSISTOR_NPNSOT89 SOT89              sot89_lengrebein 1
+
+Q19                        CRYSTALHC49UP       HC49UP             crystal          1	1842294
+
+R1       10k               RESISTOR            0805               SparkFun         1	1469748 
+R2      470                RESISTOR            0805               SparkFun         1    1469815
+R3                         RESISTOR            0805               SparkFun         1
+R4                         RESISTOR            0805               SparkFun         1
+R5                         RESISTOR            0805               SparkFun         1
+R6                         RESISTOR            0805               SparkFun         1
+R7                         RESISTOR            0805               SparkFun         1
+R8                         RESISTOR            0805               SparkFun         1
+R9                         RESISTOR            0805               SparkFun         1
+R10                        RESISTOR            0805               SparkFun         1
+R11                        RESISTOR            0805               SparkFun         1
+R12                        RESISTOR            0805               SparkFun         1
+R13                        RESISTOR            0805               SparkFun         1
+R14                        RESISTOR            0805               SparkFun         1
+R15                        RESISTOR            0805               SparkFun         1
+R16                        RESISTOR            0805               SparkFun         1
+R17                        RESISTOR            0805               SparkFun         1
+R18                        RESISTOR            0805               SparkFun         1
+R19                        RESISTOR            0805               SparkFun         1
+R20                        RESISTOR            0805               SparkFun         1	DMX line termination
+
+
+Resistorer for RGB dioder: 2x 1457959 og 1x 1457961 
