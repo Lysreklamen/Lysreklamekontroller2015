@@ -38,7 +38,7 @@ OutputMedium5_Type=GeneratedFiles
 OutputType1=Gerber
 OutputName1=Gerber Files
 OutputCategory1=Fabrication
-OutputDocumentPath1=
+OutputDocumentPath1=Panel.PcbDoc
 OutputVariantName1=
 OutputEnabled1=1
 OutputEnabled1_OutputMedium1=0
@@ -52,7 +52,7 @@ Configuration1_Item1=AddToAllPlots.Set=SerializeLayerHash.Version~2,ClassName~TL
 OutputType2=NC Drill
 OutputName2=NC Drill Files
 OutputCategory2=Fabrication
-OutputDocumentPath2=
+OutputDocumentPath2=Panel.PcbDoc
 OutputVariantName2=
 OutputEnabled2=1
 OutputEnabled2_OutputMedium1=0
