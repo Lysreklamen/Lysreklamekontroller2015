@@ -1,0 +1,16 @@
+---------------------------------------------------------------------------
+NCDrill File Report For: Panel.PcbDoc   07.05.2015  19:43:20
+---------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : Panel.TXT
+
+Tool         Hole Size           Hole Type     Hole Count Plated       Tool Travel
+---------------------------------------------------------------------------
+T1        27.56mil (0.70002mm)     Round          192              32.71 Inch (830.80 mm)
+T2        35.43mil (0.89992mm)     Round          192              30.84 Inch (783.31 mm)
+T3        98.43mil (2.50012mm)     Round          48        NPTH   26.85 Inch (681.90 mm)
+---------------------------------------------------------------------------
+Totals                                            432              90.39 Inch (2296.01 mm)
+
+Total Processing Time (hh:mm:ss) : 00:00:00
