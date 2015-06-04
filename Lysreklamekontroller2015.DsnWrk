@@ -1,0 +1,12 @@
+[ProjectGroup]
+Version=1.0
+[Project1]
+ProjectPath=Lysreklamekontroller2015.PrjCor
+[Project2]
+ProjectPath=Kontrollerkort\Kontrollerkort.PrjPcb
+[Project3]
+ProjectPath=Driverkort\Driverkort.PrjPcb
+[Project4]
+ProjectPath=Bokskort\Bokskort.PrjPcb
+[Project5]
+ProjectPath=Layout\Layout.PrjPcb
