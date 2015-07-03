@@ -1,0 +1,12 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : PCB Document [Kontrollerkort.PcbDoc]
+   Generated File[Kontrollerkort.TXT]
+   Generated File[Kontrollerkort.LDP]
+   Generated File[Kontrollerkort.DRR]
+
+
+Files Generated   : 3
+Documents Printed : 0
+
+Finished Output Generation At 18:39:04 On 03.07.2015
