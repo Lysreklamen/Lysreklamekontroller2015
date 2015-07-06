@@ -28,7 +28,7 @@ PowerPortNamesTakePriority=0
 PushECOToAnnotationFile=1
 DItemRevisionGUID=
 ReportSuppressedErrorsInMessages=0
-OutputPath=Project Outputs for Bokskort
+OutputPath=
 LogFolderPath=
 ManagedProjectGUID=
 
@@ -102,7 +102,7 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=
+DocumentUniqueId=NTNRMKNR
 
 [Document5]
 DocumentPath=..\Komponenter\4P_LED_connector.SchLib
@@ -154,6 +154,40 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
+
+[Document8]
+DocumentPath=..\Komponenter\Lysreklameparalellbusskontakt2015_FEMALE.SchLib
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=QRYKYIKY
+
+[Document9]
+DocumentPath=..\Komponenter\HDRRAF32W64P254_2X16_4064X1260X600B.PcbLib
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=TKVKUEIK
 
 [GeneratedDocument1]
 DocumentPath=Project Outputs for Bokskort\NC Drill\Bokskort.DRR
@@ -218,7 +252,7 @@ GenerateBOM=1
 OutputJobsCount=0
 
 [Generic_EDE]
-OutputDir=Project Outputs for Bokskort
+OutputDir=
 
 [OutputGroup1]
 Name=Netlist Outputs
