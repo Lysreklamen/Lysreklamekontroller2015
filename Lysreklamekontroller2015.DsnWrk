@@ -1,12 +1,22 @@
 [ProjectGroup]
 Version=1.0
 [Project1]
-ProjectPath=Lysreklamekontroller2015.PrjCor
-[Project2]
-ProjectPath=Kontrollerkort\Kontrollerkort.PrjPcb
-[Project3]
-ProjectPath=Driverkort\Driverkort.PrjPcb
-[Project4]
 ProjectPath=Bokskort\Bokskort.PrjPcb
-[Project5]
+[Project2]
 ProjectPath=Layout\Layout.PrjPcb
+[Project3]
+ProjectPath=Lysreklamekontroller2015.PrjCor
+[Project4]
+ProjectPath=Kontrollerkort\Kontrollerkort.PrjPcb
+[Project5]
+ProjectPath=Driverkort\Driverkort.PrjPcb
+[Project6]
+ProjectPath=Bokskort_Minilysrelamen\Bokskort_Minilysrelamen.PrjPcb
+[Project7]
+ProjectPath=LED-Holder_5mm\LED-Holder_5mm.PrjPcb
+[Project8]
+ProjectPath=..\..\Oystein Smith\Prosjekter\Panel_Bokskort\Panel_Bokskort.PrjPcb
+[Project9]
+ProjectPath=..\..\Oystein Smith\Prosjekter\Panel_Bokskort_mini\Panel_Bokskort_mini.PrjPcb
+[Project10]
+ProjectPath=..\..\Oystein Smith\Prosjekter\Panel_Driver_Kontroller\Panel_Driver_Kontroller.PrjPcb
