@@ -1,0 +1,12 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : PCB Document [Panel_Driver_Kontroller.PcbDoc]
+   Generated File[Panel_Driver_Kontroller.TXT]
+   Generated File[Panel_Driver_Kontroller.LDP]
+   Generated File[Panel_Driver_Kontroller.DRR]
+
+
+Files Generated   : 3
+Documents Printed : 0
+
+Finished Output Generation At 19:06:37 On 30.07.2015

@@ -1,0 +1,18 @@
+---------------------------------------------------------------------------
+NCDrill File Report For: Panel_Driver_Kontroller.PcbDoc   30.07.2015  19:06:36
+---------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : Panel_Driver_Kontroller.TXT
+
+Tool         Hole Size           Hole Type     Hole Count Plated       Tool Travel
+---------------------------------------------------------------------------
+T1        11.81mil (0.29997mm)     Round          70               15.76 Inch (400.43 mm)
+T2        27.99mil (0.71095mm)     Round          54               19.29 Inch (489.92 mm)
+T3        31.5mil (0.8001mm)       Round          198              27.22 Inch (691.27 mm)
+T4        35.43mil (0.89992mm)     Round          12               2.87 Inch (72.86 mm)
+T5        125.98mil (3.19989mm)    Round          10        NPTH   14.57 Inch (370.00 mm)
+---------------------------------------------------------------------------
+Totals                                            344              79.70 Inch (2024.48 mm)
+
+Total Processing Time (hh:mm:ss) : 00:00:01

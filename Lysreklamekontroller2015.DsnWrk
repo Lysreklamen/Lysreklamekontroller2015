@@ -15,8 +15,8 @@ ProjectPath=Bokskort_Minilysrelamen\Bokskort_Minilysrelamen.PrjPcb
 [Project7]
 ProjectPath=LED-Holder_5mm\LED-Holder_5mm.PrjPcb
 [Project8]
-ProjectPath=..\..\Oystein Smith\Prosjekter\Panel_Bokskort\Panel_Bokskort.PrjPcb
+ProjectPath=Panel Bokskort\Panel_Bokskort.PrjPcb
 [Project9]
-ProjectPath=..\..\Oystein Smith\Prosjekter\Panel_Bokskort_mini\Panel_Bokskort_mini.PrjPcb
+ProjectPath=Panel Bokskort mini\Panel_Bokskort_mini.PrjPcb
 [Project10]
-ProjectPath=..\..\Oystein Smith\Prosjekter\Panel_Driver_Kontroller\Panel_Driver_Kontroller.PrjPcb
+ProjectPath=Panel Driver Kontroller\Panel_Driver_Kontroller.PrjPcb

@@ -1,0 +1,12 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : PCB Document [Panel_Bokskort.PcbDoc]
+   Generated File[Panel_Bokskort.TXT]
+   Generated File[Panel_Bokskort.LDP]
+   Generated File[Panel_Bokskort.DRR]
+
+
+Files Generated   : 3
+Documents Printed : 0
+
+Finished Output Generation At 18:34:43 On 30.07.2015
