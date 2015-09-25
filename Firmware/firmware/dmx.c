@@ -8,7 +8,7 @@
 #include "dmx.h"
 #include "pwm.h"
 
-#include "cardconf/card00.h"
+#include "cardconf/card01.h"
 
 #define DMX_BREAK_TIME	150	//uS
 
