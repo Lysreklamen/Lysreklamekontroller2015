@@ -8,9 +8,9 @@
 #include "dmx.h"
 #include "pwm.h"
 
-#include "cardconf/card01.h"
+#include "cardconf/card29.h"
 
-#define DMX_BREAK_TIME	150	//uS
+#define DMX_BREAK_TIME 150 //us
 
 volatile uint16_t dmx_frame_counter;
 volatile uint16_t dmx_byte_counter;
@@ -18,28 +18,16 @@ volatile uint32_t dmx_break_timer;
 
 uint8_t dmx_frame[613];
 
-uint16_t dmx_start_address = 0;
+uint16_t dmx_start_address = DMX_START_ADDRESS;
 uint16_t EEMEM eeprom_dmx_start_address = 0;
 uint8_t defaultFrame[18] = DMX_DEFAULT_FRAME;
 uint8_t EEMEM eeprom_defaultFrame[36];
 
-void applyFrame(uint8_t frame[]);
+void applyFrame(uint8_t frame[], uint16_t offset);
 void saveFrame(uint8_t frame[]);
 
 void dmx_init(void)
 {
-
-	/* Read start address from EEPROM: */
-	//dmx_start_address = eeprom_read_word(&eeprom_dmx_start_address);
-	dmx_start_address = DMX_START_ADDRESS;
-
-	
-	//Read default frame from eeprom:
-	//eeprom_read_block(defaultFrame, eeprom_defaultFrame, sizeof(defaultFrame)); 
-	//if (dmx_start_address == 0xFFFF) {
-	//	dmx_start_address = 0x0000;
-	//}
-
 	/* Setup communication: */
 	PORTD.DIRCLR = PIN6_bm;
 	//PORTD.PIN6CTRL ^= PORT_INVEN_bm;
@@ -66,7 +54,7 @@ void dmx_handle(uint32_t dt)
 {
 
 	if (TCD1.CNT*2 >= 64000) {
-		applyFrame(&defaultFrame[0]);
+		applyFrame(&defaultFrame[0],0);
 	}
 
 	//No data received?
@@ -82,7 +70,7 @@ void dmx_handle(uint32_t dt)
 		//Not a data frame?
 		if (dmx_frame[0] == 0x00) {
 			//Apply the new DMX- frame:
-			applyFrame(&dmx_frame[2]);
+			applyFrame(&dmx_frame[2],dmx_start_address);
 		} else if (dmx_frame[0] == 0x01) {
 //			saveFrame(&dmx_frame[2]);
 		}
@@ -94,10 +82,10 @@ void dmx_handle(uint32_t dt)
 	
 }
 
-void applyFrame(uint8_t frame[]) 
+void applyFrame(uint8_t frame[], uint16_t offset)
 {
 	//Apply the new DMX- frame:
-	#define FRAME(channel) (frame[(dmx_start_address+(channel))] * frame[(dmx_start_address+(channel))])
+	#define FRAME(channel) (frame[(offset+(channel))] * frame[(offset+(channel))])
 	LED0_SET(FRAME(0), FRAME(1), FRAME(2));
 	LED1_SET(FRAME(3), FRAME(4), FRAME(5));
 	LED2_SET(FRAME(6), FRAME(7), FRAME(8));
