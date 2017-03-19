@@ -1,12 +1,10 @@
-Output: NC Drill Files
-Type  : NC Drill
-From  : PCB Document [Kontrollerkort.PcbDoc]
-   Generated File[Kontrollerkort.TXT]
-   Generated File[Kontrollerkort.LDP]
-   Generated File[Kontrollerkort.DRR]
+Output: Bill of Materials Fitted
+Type  : BOM
+From  : Variant [[No Variations]] of Project [Kontrollerkort.PrjPcb]
+   Generated File[Bill of Materials Fitted-Kontrollerkort.xls]
 
 
-Files Generated   : 3
+Files Generated   : 1
 Documents Printed : 0
 
-Finished Output Generation At 18:39:04 On 03.07.2015
+Finished Output Generation At 23:00:04 On 17/03/2017
