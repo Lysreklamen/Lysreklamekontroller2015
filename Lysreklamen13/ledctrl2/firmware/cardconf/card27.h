@@ -1,3 +1,0 @@
-#define DMX_START_ADDRESS 486
-#define DMX_DEFAULT_FRAME {  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0}
-
