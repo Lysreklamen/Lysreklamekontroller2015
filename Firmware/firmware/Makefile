@@ -69,7 +69,7 @@ MCU=atxmega64a3
 
 # Name of our project
 # (use a single word, e.g. 'myproject')
-PROJECTNAME=usv
+PROJECTNAME=card
 
 SIMULATION=NO
 
@@ -107,7 +107,7 @@ OPTLEVEL=s
 # one of the valid "-c PROGRAMMER-ID" values 
 # described in the avrdude info page.
 # 
-AVRDUDE_PROGRAMMERID=stk600
+AVRDUDE_PROGRAMMERID=atmelice_pdi
 
 # port--serial or parallel port to which your 
 # hardware programmer is attached
