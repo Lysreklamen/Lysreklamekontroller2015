@@ -1,3 +1,7 @@
 #include "cardconf/modules.h"
 #define DMX_START_ADDRESS 180
-#define DMX_DEFAULT_FRAME {255,83,16,255,83,16,218,165,32,218,165,32,218,165,32,218,165,32}
+#define DMX_DEFAULT_FRAME                                                      \
+  {                                                                            \
+    48, 213, 200, 48, 213, 200, 48, 213, 200, 48, 213, 200, 48, 213, 200, 48,  \
+        213, 200                                                               \
+  }
