@@ -1,13 +1,12 @@
-#include <config.h>
+#include "config.h"
 #include <util/delay.h>
 #include <inttypes.h>
 #include <string.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
-#include <xmega_clock.h>
-#include <xmega_timer.h>
-
+#include "xmega_clock.h"
+#include "xmega_timer.h"
 #include "pwm.h"
 #include "com.h"
 #include "dmx.h"

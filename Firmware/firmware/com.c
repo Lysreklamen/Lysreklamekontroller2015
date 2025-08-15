@@ -4,8 +4,8 @@
 #include <avr/eeprom.h>
 #include <inttypes.h>
 #include <string.h>
-#include <xmega_usart.h>
-#include <ring.h>
+#include "xmega_usart.h"
+#include "ring.h"
 #include "com.h"
 #include "pwm.h"
 
