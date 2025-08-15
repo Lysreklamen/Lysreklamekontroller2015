@@ -249,7 +249,7 @@ writeflash: hex
 writeeeprom: hex
 	$(AVRDUDE) -c $(AVRDUDE_PROGRAMMERID)   \
 	 -p $(MCU) -P $(AVRDUDE_PORT)        \
-	 -U eeprom:w:$(EEPROMTRG) -F
+	 -U eeprom:w:$(EEPROMTRG) -B 125kHz  -F
 
 install: writeflash
 
