@@ -27,7 +27,7 @@ stats: $(NAVN).out
 
 hex: $(NAVN).hex $(NAVN).ee.hex
 
-AVRDUDE_OPTIONS= -c atmelice_pdi -P usb -p $(MCU)
+AVRDUDE_OPTIONS= -c atmelice_pdi -P usb -p $(MCU) -B 125kHz
 
 # -e betyr gjør chiperase først
 writeflash: $(NAVN).hex 
