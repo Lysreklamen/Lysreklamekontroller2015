@@ -8,25 +8,15 @@
 #include "xmega_clock.h"
 #include "xmega_timer.h"
 #include "pwm.h"
-#include "com.h"
 #include "dmx.h"
-
-void dmx_handle(uint32_t dt);
 
 int main(void)
 {
-	/* Configure clock: */
-//	xmega_clock_select_ext();
+	//xmega_clock_select_ext();
 	xmega_clock_select_32mhz();
 	
-	/* Setup PWM: */
 	pwm_init();
-
-	/* Setup communication: */
-	com_init();
 	dmx_init();
-
-	com_write("RESTART\n");
 
 	/* Enable interrupts: */
 	PMIC.CTRL |= PMIC_LOLVLEX_bm;
@@ -40,7 +30,9 @@ int main(void)
 	LED4_SET(255, 0, 0);
 	LED5_SET(255, 0, 0);
 	
-	while (1) dmx_handle(0);
+	while (1) {
+		dmx_handle();
+		}
 
 	return 0;
 }
