@@ -93,14 +93,14 @@ void pwm_set_ch(uint8_t ch, uint8_t value)
 
 void pwm_set_led(uint8_t led, uint8_t red, uint8_t green, uint8_t blue)
 {
-	set_ch(led*3+0, red);
-	set_ch(led*3+1, green);
-	set_ch(led*3+2, blue);
+	pwm_set_ch(led*3+0, red);
+	pwm_set_ch(led*3+1, green);
+	pwm_set_ch(led*3+2, blue);
 }
 
 void pwm_set_frame(uint8_t frame[])
 {
 	for (uint8_t i = 0 ; i < 18; i++ ){
-		set_ch(i,frame[i]);
+		pwm_set_ch(i,frame[i]);
 	}
 }

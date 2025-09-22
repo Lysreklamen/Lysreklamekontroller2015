@@ -46,6 +46,8 @@ static void dmx_error( void )
 void applyFrame(volatile uint8_t frame[]);
 
 void dmx_init(void) {
+  load_id();
+  load_default();
   // PD5 er TX-pinnen
   // PD6 er RX-pinnen
   // PD7 velger retning

@@ -1,19 +1,21 @@
 #include <avr/io.h>
 #include <avr/eeprom.h>
 
-#include "cardconf/card06.h"
+#include "default.h"
+
+// #include "cardconf/card06.h"
 #include "test/defaultframe.h"
 
 
 uint8_t EEMEM eeprom_boks_id = 0;
 uint8_t EEMEM eeprom_defaultFrame[] = DEFAULT_FRAME;
 
-uint8_t defaultFrame[18] = DMX_DEFAULT_FRAME;
+uint8_t defaultFrame[18];
 uint8_t boks_id = 0;
 
-void load_default(uint16_t start_address)
+void load_default( void )
 {
-    eeprom_read_block(defaultFrame, &eeprom_defaultFrame[start_address], 18);
+    eeprom_read_block(defaultFrame, &eeprom_defaultFrame[get_start_address()], 18);
 }
 
 void save_default(uint8_t frame[], size_t size) 
