@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#define F_CPU 32000000UL 
 #include <util/delay.h>
 
 
@@ -54,7 +55,7 @@ bool xmega_clock_start_xtal(void)
 	}
 
 	// setup PLL
-	OSC.PLLCTRL |= OSC_PLLSRC_XOSC_gc | (2 << OSC_PLLFAC_gm);
+	OSC.PLLCTRL |= OSC_PLLSRC_XOSC_gc | (2 << OSC_PLLFAC_gp);
 	
 	if (!wait_for_clock(OSC_PLLRDY_bm, 10000)){
 		return false;
@@ -79,7 +80,7 @@ int xmega_clock_init(void)
 		return false;
 	}
 	xmega_clock_select_32mhz();
-	
+	return 0;
 	// todo: test
 	// if (xmega_clock_start_xtal){
 	// 	xmega_clock_select_xtal();
