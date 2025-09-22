@@ -1,6 +1,8 @@
 #ifndef PWM_H
 #define PWM_H
 
+#include <xmega_timer.h>
+
 //32Mhz / 4 / 2^16 = 122Hz:
 #define PRESCALER	TC_CLKSEL_DIV2_gc
 #define PWM_PERIOD	65535
@@ -12,7 +14,10 @@
 #define LED4_SET(r, g, b)	xmega_timer_ccd(&TCE0, (r)); xmega_timer_cca(&TCE1, (g)); xmega_timer_ccb(&TCE1, (b))
 #define LED5_SET(r, g, b)	xmega_timer_cca(&TCE0, (r)); xmega_timer_ccb(&TCE0, (g)); xmega_timer_ccc(&TCE0, (b))
 
-#include <xmega_timer.h>
 void pwm_init(void);
+
+void pwm_set_ch(uint8_t ch, uint8_t value);
+void pwm_set_led(uint8_t led, uint8_t red, uint8_t green, uint8_t blue);
+void pwm_set_frame(uint8_t frame[]);
 
 #endif

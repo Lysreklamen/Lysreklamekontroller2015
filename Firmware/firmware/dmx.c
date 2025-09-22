@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <avr/eeprom.h>
 #include <avr/interrupt.h>
 #include <avr/io.h>
@@ -5,113 +6,132 @@
 #include "dmx.h"
 #include "pwm.h"
 #include "xmega_usart.h"
+#include "xmega_timer.h"
+#include "debug_led.h"
+#include "default.h"
 
-#include "cardconf/card06.h"
+#define DMX_USART USARTD1
+#define DMX_RXC_vect USARTD1_RXC_vect
+
+#define DMX_TIMER TCD1
+#define DMX_OVF_vect TCD1_OVF_vect
 
 #define DMX_BREAK_TIME 150 // us
 
+// en dmx-frame er på maks 512 "fields"
+// pluss en startbyte
+// og så legger vi på en ekstra bolle i posen for å være sikker:
+#define DMX_BUFFER_SIZE 514
+
+typedef enum {
+  Start = 0,
+  Break,
+  Motta,
+  Ferdig,
+  Error,
+} tilstand_t ;
+
+
+volatile tilstand_t tilstand = Start;
+volatile bool timeout = false;
 volatile uint16_t dmx_byte_counter;
+volatile uint8_t dmx_frame[DMX_BUFFER_SIZE];
 
-// Hvorfor er buferet nøyaktig 100 for langt?
-uint8_t dmx_frame[613];
+static void dmx_error( void )
+{
+  tilstand = Error;
+  debug_led1_clr();
+}
 
-uint16_t dmx_start_address = DMX_START_ADDRESS;
-uint16_t EEMEM eeprom_dmx_start_address = 0;
-uint8_t defaultFrame[18] = DMX_DEFAULT_FRAME;
-uint8_t EEMEM eeprom_defaultFrame[36];
-
-void applyFrame(uint8_t frame[], uint16_t offset);
-void saveFrame(uint8_t frame[]);
+void applyFrame(volatile uint8_t frame[]);
 
 void dmx_init(void) {
-  // PD6 er TX-pinnen
+  // PD5 er TX-pinnen
+  // PD6 er RX-pinnen
   // PD7 velger retning
-  // Litt usikker på hvorfor vi skrur på TX-pinnen siden vi aldri gjør noe med 
-  // retnings-pinnen   
   PORTD.DIRCLR = PIN6_bm;
-  // PORTD.PIN6CTRL ^= PORT_INVEN_bm;
+  // Sett på pullup på rx-pinnen for å redusere kreft
+  PORTD.PIN6CTRL |= PORT_OPC_PULLUP_gc;
 
-  xmega_usart_mode(&USARTD1, USART_CMODE_ASYNCHRONOUS_gc);
-  xmega_usart_frame(&USARTD1, USART_CHSIZE_8BIT_gc, USART_PMODE_DISABLED_gc, 1);
-  xmega_usart_baud(&USARTD1, 250000);
-  xmega_usart_rx_enable(&USARTD1);
-  xmega_usart_rxc_intlevel(&USARTD1, USART_RXCINTLVL_MED_gc);
+  xmega_usart_mode(&DMX_USART, USART_CMODE_ASYNCHRONOUS_gc);
+  xmega_usart_frame(&DMX_USART, USART_CHSIZE_8BIT_gc, USART_PMODE_DISABLED_gc, 1);
+  xmega_usart_baud(&DMX_USART, 250000);
+  xmega_usart_rx_enable(&DMX_USART);
+  xmega_usart_rxc_intlevel(&DMX_USART, USART_RXCINTLVL_MED_gc);
 
   // Sett opp en timer for å telle hvor lenge det er siden sist vi mottok noe
   // Den går på F_CPU / 64 = 500kHz, eller 2μs per tikk
-  xmega_timer_prescale(&TCD1, TC_CLKSEL_DIV64_gc);
-  xmega_timer_wgm(&TCD1, TC_WGMODE_NORMAL_gc);
-  xmega_timer_enable_a(&TCD1);
+  xmega_timer_prescale(&DMX_TIMER, TC_CLKSEL_DIV64_gc);
+  xmega_timer_wgm(&DMX_TIMER, TC_WGMODE_NORMAL_gc);
+  // xmega_timer_enable_a(&DMX_TIMER);
+  xmega_timer_ovf_interrupt(&DMX_TIMER, TC_OVFINTLVL_LO_gc);
 
   dmx_byte_counter = 0;
 }
 
 void dmx_handle(void) {
-  if (TCD1.CNT * 2 >= 64000) {
-  // Hvis det har gått mer enn 128ms siden sist pakke antar vi at noe har gått galt™  
-  // og at det er på tide å sette på default.  
-    applyFrame(&defaultFrame[0], 0);
+  if (timeout) {
+    timeout = false;
+    // Vi antar at noe har gått galt™
+    dmx_error();
+    // og at det er på tide å sette på default.  
+    applyFrame(get_default());
+    // pwm_set_frame(get_default()); # TODO
+    debug_led2_set();
   }
 
-  // Denne tester om vi har fått nok data til at denne boksen kunne satt på leds
-  // Dette er en litt rar™ måte å gjøre dette på og kan potensielt føre til at en break ikke blir 
-  // riktig håndtert hvis noe går galt
-  if (dmx_byte_counter < (1 + dmx_start_address + 18))
-    return;
+  if (tilstand == Motta && dmx_byte_counter >= get_end_address()) {
+    tilstand = Ferdig;
+    applyFrame(&dmx_frame[get_start_address()]);
+    // pwm_set_frame(&dmx_frame[get_start_address()]); # TODO
+    debug_led2_clr();
 
-  // Denne ser etter om det har vært en pause på lengde med en break siden sist vi mottok data
-  // Dette er egentlig feil måte å gjøre dette på og burde fikses
-  if (TCD1.CNT * 2 >= DMX_BREAK_TIME) {
-    TCD1.CNT = 0;
-    dmx_byte_counter = 0;
-    if (dmx_frame[0] == 0x00) {
-      // Hvorfor er det [2] og ikke [1] ??? 
-      applyFrame(&dmx_frame[2], dmx_start_address);
-    }
   }
 }
 
-void applyFrame(uint8_t frame[], uint16_t offset) {
+void applyFrame(volatile uint8_t frame[]) {
 // Apply the new DMX- frame:
-#define FRAME(channel) (frame[(offset + (channel))] * frame[(offset + (channel))])
-  LED0_SET(FRAME(0), FRAME(1), FRAME(2));
-  LED1_SET(FRAME(3), FRAME(4), FRAME(5));
-  LED2_SET(FRAME(6), FRAME(7), FRAME(8));
-  LED3_SET(FRAME(9), FRAME(10), FRAME(11));
-  LED4_SET(FRAME(12), FRAME(13), FRAME(14));
-  LED5_SET(FRAME(15), FRAME(16), FRAME(17));
+  LED0_SET(frame[0], frame[1], frame[2]);
+  LED1_SET(frame[3], frame[4], frame[5]);
+  LED2_SET(frame[6], frame[7], frame[8]);
+  LED3_SET(frame[9], frame[10], frame[11]);
+  LED4_SET(frame[12], frame[13], frame[14]);
+  LED5_SET(frame[15], frame[16], frame[17]);
 }
 
-void saveFrame(uint8_t frame[]) {
-  int i;
-  for (i = 0; i < 18; i++) {
-    defaultFrame[i] = frame[i];
-  }
-  eeprom_write_block(defaultFrame, eeprom_defaultFrame, sizeof(defaultFrame));
+bool frame_error( uint8_t s ){
+  return s & (USART_FERR_bm);
 }
 
-void dmx_parse(uint8_t c) {
-
-  // Save byte to frame:
-  dmx_frame[dmx_byte_counter] = c;
-  dmx_byte_counter++;
-  // Hvorfor er dette ikke 513 
-  if (dmx_byte_counter > 600) {
-    // her burde det ha vært noe lurt™
+void dmx_parse(uint8_t c){
+  if (tilstand == Break && c == 0) {
+    tilstand = Motta;
     dmx_byte_counter = 0;
+  } else if ((tilstand == Motta || tilstand == Ferdig) && (dmx_byte_counter < DMX_BUFFER_SIZE)) {
+    dmx_frame[dmx_byte_counter++] = c;
+    // Reset timeout timer:
+    DMX_TIMER.CNT = 0;
+  } else {
+    dmx_error();
   }
 }
-// Denne kunne sikkert ha vært brukt til å sette timeout og/eller håndtere break
-ISR(TCD1_OVF_vect) {}
 
+ISR(DMX_OVF_vect) {
+  // Hvis det har gått mer enn 128ms siden sist pakke antar vi at noe har gått galt™
+  timeout = true;
+}
 // Denne tar i mot 1x byte og putter den i bufferet
-ISR(USARTD1_RXC_vect) {
-  /* Parse incomming byte: */
-  uint8_t c = xmega_usart_getc(&USARTD1);
-
-  /* Send to active parser: */
-  dmx_parse(c);
-
-  // Reset break timer:
-  TCD1.CNT = 0;
+ISR(DMX_RXC_vect) {
+  uint8_t s = DMX_USART.STATUS;
+  uint8_t c = xmega_usart_getc(&DMX_USART);
+  if (frame_error(s) && c == 0){
+    // en dmx 'break' er når man holder linjen lavt i mer enn en frame
+    // så hvis vi får en frame error og det bare er 0, er det et godt tegn
+    tilstand = Break;
+    debug_led1_set();
+  } else if (frame_error(s)) {
+      dmx_error();
+  } else {
+    dmx_parse(c);
+  }
 }

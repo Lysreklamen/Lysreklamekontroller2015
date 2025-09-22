@@ -3,7 +3,7 @@ NAVN=kort
 MCU=atxmega64a3
 
 # Alle C-filene vi skal bygge:
-CFILER=main.c pwm.c dmx.c xmega_usart.c xmega_clock.c
+CFILER=main.c pwm.c dmx.c xmega_usart.c xmega_clock.c default.c
 
 # Optimisering:
 OPTIMISERING=s

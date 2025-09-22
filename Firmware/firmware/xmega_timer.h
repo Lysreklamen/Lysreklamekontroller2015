@@ -1,6 +1,8 @@
 #ifndef XMEGA_TIMER_H
 #define XMEGA_TIMER_H
 
+#include <avr/io.h>
+
 #define xmega_timer_prescale(timer, div) ((timer)->CTRLA = (div))
 #define xmega_timer_period(timer, per) ((timer)->PER = (per))
 #define xmega_timer_ovf_interrupt(timer, lvl) ((timer)->INTCTRLA = ((timer)->INTCTRLA&~0x03) | (lvl))
