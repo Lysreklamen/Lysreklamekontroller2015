@@ -10,6 +10,9 @@
 #include "pwm.h"
 #include "dmx.h"
 #include "debug_led.h"
+#include <util/delay.h> 
+
+
 
 int main(void)
 {

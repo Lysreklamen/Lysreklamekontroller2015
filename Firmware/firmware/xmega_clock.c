@@ -24,16 +24,17 @@ bool wait_for_clock(uint8_t mask, uint16_t timeout)
 
 bool xmega_clock_start_32mhz(void)
 {
-	OSC.CTRL |= OSC_RC32MEN_bm; // |OSC_RC32KEN_bm
+	OSC.CTRL |= OSC_RC32MEN_bm |OSC_RC32KEN_bm;
 	//Wait for ready
-	if (!wait_for_clock(OSC_RC32MRDY_bm, 1000)){ // 200 000 cycles, or ~100ms at 2MHz
+	if (!wait_for_clock(OSC_RC32MRDY_bm, 10000)){ // 200 000 cycles, or ~100ms at 2MHz
 		return false;
 	}
-	if (!wait_for_clock(OSC_RC32KRDY_bm, 1000)){
+
+	if (!wait_for_clock(OSC_RC32KRDY_bm, 10000)){
 		return false;
 	}
 	// TODO: test:
-	// DFLLRC32M.CTRL |= DFLL_ENABLE_bm;	
+	DFLLRC32M.CTRL |= DFLL_ENABLE_bm;	
 	return true;
 }
 
@@ -80,11 +81,7 @@ int xmega_clock_init(void)
 		return false;
 	}
 	xmega_clock_select_32mhz();
-	return 0;
-	// todo: test
-	// if (xmega_clock_start_xtal){
-	// 	xmega_clock_select_xtal();
-	// }
+	return true;
 }
 
 ISR(OSC_XOSCF_vect)
