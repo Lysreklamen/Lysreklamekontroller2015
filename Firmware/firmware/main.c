@@ -1,23 +1,24 @@
 #include "config.h"
-// #include <util/delay.h>
+
 #include <inttypes.h>
-// #include <string.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
-// #include <avr/sleep.h>
+#include <util/delay.h> 
+
 #include "xmega_clock.h"
 #include "xmega_timer.h"
 #include "pwm.h"
 #include "dmx.h"
+#include "default.h"
 #include "debug_led.h"
-#include <util/delay.h> 
 
 
 
 int main(void)
 {
 	xmega_clock_init();
-	
+	default_init();
+
 	debug_led_init();
 	pwm_init();
 	dmx_init();

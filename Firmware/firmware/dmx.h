@@ -5,5 +5,5 @@
 
 void dmx_init(void);
 void dmx_handle(void);
-    
+
 #endif

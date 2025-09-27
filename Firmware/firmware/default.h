@@ -2,15 +2,15 @@
 #define DEFAULT_H
 
 #include <avr/io.h>
+#include <stddef.h>
+ 
+uint8_t* boks_default( void );
+uint16_t første_addresse( void );
+uint16_t siste_addresse( void );
 
-uint8_t* get_default( void );
-uint16_t get_start_address( void );
-uint16_t get_end_address( void );
+void default_init( void );
 
-void load_default( void );
-void save_default(uint8_t frame[], size_t size);
-
-void load_id( void );
-void write_id( uint8_t id );
+void skriv_default(uint8_t frame[], size_t size);
+void skriv_id( uint8_t id );
 
 #endif
