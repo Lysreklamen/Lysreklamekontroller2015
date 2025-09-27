@@ -30,8 +30,10 @@ volatile uint8_t  dmx_frame[DMX_BUFFER_SIZE];
 volatile uint16_t dmx_ch;             // Hvilken kanal har vi kommet til
 volatile uint16_t dmx_timeout_ms = 0; // hvor mange ms er det igjen til vi må sette default
 
-volatile uint8_t  dmx_boksid_teller = 0;
-volatile uint8_t  dmx_boksid_ny_verdi = 0;
+
+volatile uint8_t  dmx_boksid_setup  = 0;
+volatile uint8_t  dmx_boksid_set = 0;
+volatile uint8_t  dmx_boksid_var = 0;
 
 volatile uint8_t  dmx_default_teller = 0;
 volatile uint32_t dmx_default_timeout_ms = 0;
@@ -42,8 +44,8 @@ static void dmx_error( void ) {
 
 static void blink_farge( uint8_t n, uint8_t r, uint8_t g, uint8_t b ) {
   for (uint8_t i=0; i<n; i++){
-    LED012345_SET(r,g,b); _delay_ms(500);
-    LED012345_SET(0,0,0); _delay_ms(500);
+    LED012345_SET(r,g,b); _delay_ms(250);
+    LED012345_SET(0,0,0); _delay_ms(250);
   }
 }
 
@@ -63,11 +65,11 @@ static void oppdater_leds( void ){
   applyFrame(&dmx_frame[første_addresse()]); 
 }
 
-static void sett_ny_boksid( uint8_t boksid ){
+static void endre_boksid( uint8_t boksid ){
   modus = DMX;
-  skriv_id(boksid);
+  endre_id(boksid);
   blink_farge(3, 255, 0, 0);
-  blink_farge(boksid, 0, 255, 0);
+  blink_farge(boks_nr(), 0, 255, 0);
 }
 
 static void sett_ny_default( void ) {
@@ -111,8 +113,8 @@ void dmx_handle( void ) {
   if (dmx_timeout_ms == 0) { applyFrame(boks_default()); }
 
   switch (modus) {
-    case DMX: if (tilstand == MOTTA && dmx_ch >= siste_addresse()) {oppdater_leds();} break;
-    case BOKSNR: if (dmx_boksid_teller > 20) { sett_ny_boksid(dmx_boksid_ny_verdi); } break;
+    case DMX: if (tilstand == MOTTA && dmx_ch > siste_addresse()) {oppdater_leds();} break;
+    case BOKSNR: if (dmx_boksid_set == 0) { endre_boksid(dmx_boksid_var); } break;
     case DF_SET:
       if (!dmx_default_timeout_ms){ modus = DMX; }
       if (dmx_default_teller > 20){ sett_ny_default(); }
@@ -157,16 +159,19 @@ void default_parse( uint8_t c ) {
 
 // Denne håndterer første byte-delen og holder orden på antallet
 void boksnr_break( void ) {
-  if ( modus == BOKSNR ) { dmx_boksid_teller++; }
-  else                   { modus = BOKSNR; dmx_boksid_teller = 0; } 
+  if ( modus != BOKSNR ) { modus = BOKSNR; dmx_boksid_set = 20; dmx_boksid_setup = 20; } 
 }
-// denne sjekker ch1-verdien hvis det er der vi er
+
+// denne sjekker ch1-verdien
+// og forventer at det først kommer > 20 på rad med 0 og så 20 på rad som er like
 void boksid_parse( uint8_t c ) {
-  debug_led2_set(); 
+  debug_led2_set();
+  
   if (dmx_ch >= DMX_BUFFER_SIZE) { dmx_error(); }
   else if (dmx_ch++ == 0) { 
-    if      (dmx_boksid_teller++ == 0)  { dmx_boksid_ny_verdi = c; } 
-    else if (dmx_boksid_ny_verdi != c)  { dmx_error(); }
+    if (dmx_boksid_set==20)     { dmx_boksid_var = c; }
+    if (dmx_boksid_setup)       { dmx_boksid_setup = (c==0) ? dmx_boksid_setup-1 : 20; }
+    else if (dmx_boksid_set&&c) { dmx_boksid_set   = (c==dmx_boksid_var) ? dmx_boksid_set -1:20; }
   }
 }
 
